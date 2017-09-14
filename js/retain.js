@@ -26,7 +26,8 @@ $(function(){
         },
 
         getNotes: function() {
-            return model.getAllNotes();
+            //.reverse() returns all notes in the inverted order, from newest to oldest
+            return model.getAllNotes().reverse();
         },
 
         init: function() {
