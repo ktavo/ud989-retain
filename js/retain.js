@@ -12,6 +12,7 @@ $(function(){
             localStorage.notes = JSON.stringify(data);
         },
         getAllNotes: function() {
+            console.log(localStorage.notes);
             return JSON.parse(localStorage.notes);
         }
     };
@@ -19,10 +20,19 @@ $(function(){
 
     var octopus = {
         addNewNote: function(noteStr) {
+            var noteDate = octopus.formatDate(Date.now());
+            console.log(noteStr);
+            console.log(noteDate);
             model.add({
-                content: noteStr
+                content: noteStr,
+                date: noteDate
             });
             view.render();
+        },
+
+        formatDate: function(dateTime) {
+            var theDate = new Date(dateTime).toLocaleString();
+            return theDate;
         },
 
         getNotes: function() {
@@ -53,7 +63,8 @@ $(function(){
             var htmlStr = '';
             octopus.getNotes().forEach(function(note){
                 htmlStr += '<li class="note">'+
-                        note.content +
+                        note.content + ' <br> ' + 
+                        note.date + 
                     '</li>';
             });
             this.noteList.html( htmlStr );
